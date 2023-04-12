@@ -1,45 +1,35 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import { Text, View, StyleSheet, Button, Image } from 'react-native';
 import Constants from 'expo-constants';
 
-export default class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      resultado: ''
-    }
-    this.descobrir = this.descobrir.bind(this);
+export default function App(){
+  const [resultado, setResultado] = useState('');
+
+  function descobrir(){
+    setResultado(Math.floor(Math.random() * 10));
   }
 
-  descobrir(){
-    this.setState({
-      resultado: Math.floor(Math.random() * 10)
-    })
-  }
+  return (
+    <View>
+      <Text style={styles.paragraph}>
+        Jogo do Nº Aleatório
+      </Text>
 
-  render (){
-    return (
-      <View>
-        <Text style={styles.paragraph}>
-          Jogo do Nº Aleatório
-        </Text>
+      <Image style={styles.image} source={require("./img/gerador-numeros-aleatorios.png")}></Image>
 
-        <Image style={styles.image} source={require("./img/gerador-numeros-aleatorios.png")}></Image>
+      <Text style={styles.text}>
+        Pense em um número de 0 a 10
+      </Text>
 
-        <Text style={styles.text}>
-          Pense em um número de 0 a 10
-        </Text>
+      <Text style={styles.textResult}>
+        ----- {resultado} -----
+      </Text>
 
-        <Text style={styles.textResult}>
-          ----- {this.state.resultado} -----
-        </Text>
-
-        <View style={styles.button}>
-          <Button title="Descobrir" onPress={this.descobrir}></Button>
-        </View>
+      <View style={styles.button}>
+        <Button title="Descobrir" onPress={descobrir}></Button>
       </View>
-    );
-  }
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
